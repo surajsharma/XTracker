@@ -1,11 +1,11 @@
-const express = require('express')
-const app = express()
+const Users = require('./models/user')
 const bodyParser = require('body-parser')
-const cors = require('cors')
 const mongoose = require('mongoose')
+const express = require('express')
+const cors = require('cors')
+const app = express()
 
 mongoose.connect(process.env.MONGO_URI)
-const Users = require('./models/user')
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -15,6 +15,16 @@ app.use(express.static('public'))
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
+
+app.get('/api/exercise/users', (req, res, next) => {
+  Users.find({})
+    .then((users) => {
+      res.statusCode = 200
+      res.setHeader('Content-Type', 'application/json')
+      res.json(users)
+  }, (err) => next(err))
+  .catch((err) => next(err))
+})
 
 app.post('/api/exercise/add', (req, res, next) => {
   Users.findById(req.body.userId)
