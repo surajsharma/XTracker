@@ -19,7 +19,7 @@
           </form>
           <form action="/api/exercise/users" method="get">
             <h3>Get Users</h3>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Get Users">
           </form>
           <form action="/api/exercise/add" method="post">
             <h3>Add exercises</h3>
@@ -28,6 +28,15 @@
             <input id="desc" type="text" name="description" placeholder="description*">
             <input id="dur" type="text" name="duration" placeholder="duration* (mins.)">
             <input id="dat" type="text" name="date" placeholder="date (yyyy-mm-dd)">
+            <input type="submit" value="Submit">
+          </form>
+          <form action="/api/exercise/log" method="post">
+            <h3>Get Log</h3>
+            <p><code>GET /api/exercise/log?</code></p>
+            <input id="userid" type="text" name="userId" placeholder="userId*">
+            <input id="from" type="text" name="from" placeholder="from (yyyy-mm-dd)">
+            <input id="to" type="text" name="duration" placeholder="to (yyyy-mm-dd)">
+            <input id="limit" type="text" name="date" placeholder="limit">
             <input type="submit" value="Submit">
           </form>
           <p><strong>GET users's exercise log: </strong><code>GET /api/exercise/log?{userId}[&amp;from][&amp;to][&amp;limit]</code></p>

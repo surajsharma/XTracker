@@ -1,6 +1,8 @@
 const Users = require('./models/user')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+mongoose.Promise = require('bluebird')
+
 const express = require('express')
 const cors = require('cors')
 const app = express()
@@ -58,12 +60,15 @@ app.post('/api/exercise/new-user', (req, res, next)=> {
     .catch((err) => next(err))
 })
 
-app.get('/api/exercise/log', (req, res, next)=> {
-  var id = req.param.id
-  var from = req.param.from
-  var to = req.param.to
-  var limit = req.param.limit
-  Users.findById(req.body.userId)
+app.get('/api/exercise/log/', (req, res, next)=> {
+  console.log(req.query)
+
+  var id = req.query.userId
+  var from = req.params.from
+  var to = req.params.to
+  var limit = req.params.limit
+  
+  Users.findById(id)
     .then((user) => {
       if(user != null){
           res.statusCode = 200
@@ -75,8 +80,7 @@ app.get('/api/exercise/log', (req, res, next)=> {
           res.end('Unknown Id')        
       }
   })
-    .catch((err) => next(err))
-  
+    .catch((err) => next(err))  
 })
 
 // Not found middleware
